@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <h2>Типа пульт</h2>
+        <form action="/click" method="POST">
+        <table>
+                <tr>
+                        <td> Ip terminal </td>
+                        <td> {{ form.ipTerminal(size = 10)}} </td>
+                </tr>
+                <tr>
+                        <td> {{ form.pause()}} </td>
+                        <td></td>
+                        <td></td>
+                </tr>
+                <tr>
+                        <td> {{ form.volumeUp()}} </td>
+                        <td></td>
+                        <td> {{ form.camPlus()}} </td>
+                </tr>
+                <tr>
+                        <td> {{ form.volumeDown()}} </td>
+                        <td></td>
+                        <td> {{ form.camMinus()}} </td>
+                </tr>
+
+                <tr>
+                        <td></td>
+                        <td> {{ form.up() }} </td>
+                        <td></td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.left()}} </td>
+                        <td> {{ form.ok()}} </td>
+                        <td> {{ form.right() }} </td>
+                </tr>
+
+                <tr>
+                        <td></td>
+                        <td> {{ form.down() }} </td>
+                        <td></td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.home()}} </td>
+                        <td> {{ form.back() }} </td>
+                        <td> {{ form.save()}} </td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.call() }} </td>
+                        <td> {{ form.backSpace() }} </td>
+                        <td> {{ form.callOff() }} </td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.button_1() }} </td>
+                        <td> {{ form.button_2() }} </td>
+                        <td> {{ form.button_3() }} </td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.button_4() }} </td>
+                        <td> {{ form.button_5() }} </td>
+                        <td> {{ form.button_6() }} </td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.button_7() }} </td>
+                        <td> {{ form.button_8() }} </td>
+                        <td> {{ form.button_9() }} </td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.button_dot() }} </td>
+                        <td> {{ form.button_0() }} </td>
+                        <td> {{ form.button_dog() }} </td>
+                </tr>
+
+                <tr>
+                        <td> {{ form.pc() }} </td>
+                        <td> {{ form.far() }} </td>
+                        <td> {{ form.layout() }} </td>
+                </tr>
+
+                <tr>
+                        <td></td>
+                        <td> {{ form.micOff() }} </td>
+                        <td></td>
+                </tr>
+        </table>
+                </form>
+{% endblock %}
