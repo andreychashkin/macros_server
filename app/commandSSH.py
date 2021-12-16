@@ -4,7 +4,7 @@ import paramiko
 import time
 
 
-def commandToTerminal(command):
+def command_to_terminal(command):
     form = TerminalMacrosForm()
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -21,4 +21,4 @@ def commandToTerminal(command):
         else:
             ssh.send(f'button "{command}"' + "\n")
         time.sleep(0.3)
-    return redirect('/terminal')
+    return

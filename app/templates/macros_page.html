@@ -96,13 +96,24 @@
         </td>
 
         <td>
-                <form action="/newTest" method="POST">
-                        {{ form2.nameTest(size =20) }}  {{ form2.newTest() }}
-                </form>
+                <div>
+                        <form action="/newTest" method="POST">
+                                <p> {{ form2.nameTest(size =20) }}  {{ form2.newTest() }} </p>
+                        </form>
+                </div>
 
-                <form action="/playTest" method="POST">
-                        {{ form3.selectTest(height = 40) }} {{ form3.playTest() }}
-                </form>
+                        <form action="/playTest" method="POST">
+                                <div>
+                                       <p> {{ form3.selectTest(height = 40) }} {{ form3.playTest() }} </p>
+                                </div>
+
+                                <div>
+                                        <p> {{ form3.deleteTest() }} </p>
+
+                                        <h2> {{ form3.statusTest() }} </h2>
+                                </div>
+
+                        </form>
 
         </td>
 

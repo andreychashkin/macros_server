@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask import request, make_response
-from wtforms import StringField, SubmitField, SelectField
-import os
+from wtforms import StringField, SubmitField, SelectField, Label
+import os, threading
 
 
 class TerminalMacrosForm(FlaskForm):
@@ -44,7 +44,6 @@ class TerminalMacrosForm(FlaskForm):
 
     def set_ip_terminal(self):
         cookie = request.cookies.get('ipTerminal')
-        print(cookie)
         if cookie != None:
             self.ipTerminal.data = cookie
             make_response().set_cookie('ipTerminal', '', max_age=0)
@@ -58,10 +57,18 @@ class NewFileForm(FlaskForm):
     nameTest = StringField('nameTest')
     newTest = SubmitField('newTest')
 
+    def new_file(self):
+        if not(self.nameTest.data is None):
+            f = open('macros/'+ self.nameTest.data, 'w+')
+            f.close()
+        return
+
 
 class PlayTest(FlaskForm):
     selectTest = SelectField('selectTest')
     playTest = SubmitField('playTest')
+    deleteTest = SubmitField('deleteTest')
+    statusTest = Label('deleteTest', 'Status Test')
 
     def load_test_in_select(self):
         self.selectTest.choices = self.load_txt()
@@ -74,3 +81,7 @@ class PlayTest(FlaskForm):
             if file.endswith(".txt"):
                 rez.append(file)
         return rez
+
+    def delete_test(self):
+        os.remove(f'macros/{self.selectTest.data}')
+        return

@@ -1,7 +1,8 @@
 from app import app
 from flask import render_template, redirect, request, make_response
 from app.forms import TerminalMacrosForm, NewFileForm, PlayTest
-from app.commandToTerminal import commandToTerminal
+from app.commandSSH import command_to_terminal
+import time, paramiko
 
 
 button_terminal = {'Pause': 'Pause', 'V+': 'F9', 'V-': 'F8','+' : 'F7',
@@ -11,7 +12,7 @@ button_terminal = {'Pause': 'Pause', 'V+': 'F9', 'V-': 'F8','+' : 'F7',
                    '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6',
                    '7': '7', '8': '8', '9': '9', '0': '0', '.*': 'Dot', '#@': 'Dog',
                    'pc': 'F5', 'far/near': 'ScrollLock', 'layout': 'F10', 'MicOff': 'F3', 'Sys': 'sys',
-                   'focus': 'focus', 'SaveIp': 'SaveIp'}
+                   'focus': 'focus', 'SaveIp': 'SaveIp', 'deleteTest':'deleteTest', 'playTest': 'playTest'}
 
 
 @app.route('/')
@@ -33,4 +34,35 @@ def terminal():
 def click():
     command = (request.form.to_dict()).popitem()[1]
     command = button_terminal[command]
-    return commandToTerminal(command)
+    command_to_terminal(command)
+    return redirect('/terminal')
+
+
+@app.route('/newTest', methods=['POST'])
+def new_test():
+    form = NewFileForm()
+    form.new_file()
+    return redirect('/terminal')
+
+
+@app.route('/playTest', methods=['POST'])
+def play_test():
+    form = PlayTest()
+    command = (request.form.to_dict()).popitem()[1]
+    command = button_terminal[command]
+    if "deleteTest" in command:
+        form.delete_test()
+    if "playTest" in command:
+        file = open(f'macros/{form.selectTest.data}')
+        client = paramiko.SSHClient()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        print(request.cookies.get('ipTerminal'))
+        client.connect(hostname=str(request.cookies.get('ipTerminal')), username=str('admin'), password=str('123'), port=22)
+        with client.invoke_shell() as ssh:
+            for line in file.readlines():
+                ssh.send(f'button "Right"\n')
+                # Решить проблему с записью в файл и чтением, команда бьется через enter
+                #print(f'button "{line}"\n')
+                time.sleep(0.3)
+
+    return redirect('/terminal')
