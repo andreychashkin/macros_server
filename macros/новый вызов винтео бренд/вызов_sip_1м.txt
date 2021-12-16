@@ -1,0 +1,34 @@
+***активная конференция
+button "F4"
+focus
+button "Right"
+button "Down"
+button "Return"
+button "Right"
+button "Return"
+call
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Right"
+button "Down"
+button "Down"
+button "Return"
+button "Down"
+button "Return"
+button "Down"
+button "Right"
+button "Down"
+button "Down"
+button "Down"
+button "Return"
+button "Up"
+button "Up"
+button "Return"
+sleep5
+sleep5
+screen
+button "F2"
+button "F4"
+focus

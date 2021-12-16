@@ -1,0 +1,36 @@
+***отображается в истории активный вызов как не пропущенный , 0 сек
+button "F4"
+call
+button "F1"
+sleep5
+sleep5
+button "F4"
+screen
+button "F2"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "F4"
+focus

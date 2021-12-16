@@ -1,27 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <h2>Типа пульт</h2>
-        <form action="/click" method="POST">
+<table>
+        <td>
+                <form action="/click" method="POST">
         <table>
                 <tr>
                         <td> Ip terminal </td>
-                        <td> {{ form.ipTerminal(size = 10)}} </td>
+                        <td> {{ form.ipTerminal(size = 10) }} </td>
+                        <td> {{ form.saveIp() }} </td>
                 </tr>
                 <tr>
-                        <td> {{ form.pause()}} </td>
-                        <td></td>
-                        <td></td>
+                        <td> {{ form.pause() }} </td>
+                        <td> {{ form.focus() }} </td>
+                        <td> {{ form.system() }} </td>
                 </tr>
                 <tr>
-                        <td> {{ form.volumeUp()}} </td>
+                        <td> {{ form.volumeUp() }} </td>
                         <td></td>
-                        <td> {{ form.camPlus()}} </td>
+                        <td> {{ form.camPlus() }} </td>
                 </tr>
                 <tr>
-                        <td> {{ form.volumeDown()}} </td>
+                        <td> {{ form.volumeDown() }} </td>
                         <td></td>
-                        <td> {{ form.camMinus()}} </td>
+                        <td> {{ form.camMinus() }} </td>
                 </tr>
 
                 <tr>
@@ -31,8 +33,8 @@
                 </tr>
 
                 <tr>
-                        <td> {{ form.left()}} </td>
-                        <td> {{ form.ok()}} </td>
+                        <td> {{ form.left() }} </td>
+                        <td> {{ form.ok() }} </td>
                         <td> {{ form.right() }} </td>
                 </tr>
 
@@ -43,9 +45,9 @@
                 </tr>
 
                 <tr>
-                        <td> {{ form.home()}} </td>
+                        <td> {{ form.home() }} </td>
                         <td> {{ form.back() }} </td>
-                        <td> {{ form.save()}} </td>
+                        <td> {{ form.save() }} </td>
                 </tr>
 
                 <tr>
@@ -91,4 +93,18 @@
                 </tr>
         </table>
                 </form>
+        </td>
+
+        <td>
+                <form action="/newTest" method="POST">
+                        {{ form2.nameTest(size =20) }}  {{ form2.newTest() }}
+                </form>
+
+                <form action="/playTest" method="POST">
+                        {{ form3.selectTest(height = 40) }} {{ form3.playTest() }}
+                </form>
+
+        </td>
+
+</table>
 {% endblock %}

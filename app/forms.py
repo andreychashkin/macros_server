@@ -1,10 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from flask import request, make_response
+from wtforms import StringField, SubmitField, SelectField
+import os
 
 
 class TerminalMacrosForm(FlaskForm):
-    ipTerminal = StringField('Terminal Ip', default='10.1.0.129')
+    ipTerminal = StringField('Terminal Ip')
+    saveIp = SubmitField('SaveIp')
     pause = SubmitField('Pause')
+    focus = SubmitField('focus')
+    system = SubmitField('Sys')
     volumeUp = SubmitField('V+')
     volumeDown = SubmitField('V-')
     camPlus = SubmitField('+')
@@ -36,3 +41,36 @@ class TerminalMacrosForm(FlaskForm):
     far = SubmitField('far/near')
     layout = SubmitField('layout')
     micOff = SubmitField('MicOff')
+
+    def set_ip_terminal(self):
+        cookie = request.cookies.get('ipTerminal')
+        print(cookie)
+        if cookie != None:
+            self.ipTerminal.data = cookie
+            make_response().set_cookie('ipTerminal', '', max_age=0)
+        else:
+            print("not cookie")
+            self.ipTerminal.data = '10.1.0.129'
+        return
+
+
+class NewFileForm(FlaskForm):
+    nameTest = StringField('nameTest')
+    newTest = SubmitField('newTest')
+
+
+class PlayTest(FlaskForm):
+    selectTest = SelectField('selectTest')
+    playTest = SubmitField('playTest')
+
+    def load_test_in_select(self):
+        self.selectTest.choices = self.load_txt()
+
+    def load_txt(self):
+        rez = []
+        current_dir = os.path.abspath('.').partition('//')
+        current_dir = current_dir[0] + '/macros/'
+        for file in os.listdir(current_dir):
+            if file.endswith(".txt"):
+                rez.append(file)
+        return rez

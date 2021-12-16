@@ -1,0 +1,21 @@
+***открыта главная страница
+button "F4"
+focus
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "BackSpace"
+button "F1"
+button "F1"
+button "F1"
+button "F1"
+button "F1"
+screen

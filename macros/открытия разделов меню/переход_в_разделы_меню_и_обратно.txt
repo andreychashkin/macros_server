@@ -1,0 +1,6 @@
+***открыто меню Настройки
+button "F4"
+focus
+way_to_all_settings
+screen
+button "F4"

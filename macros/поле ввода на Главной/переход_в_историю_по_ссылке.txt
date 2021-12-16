@@ -1,0 +1,10 @@
+***открыта история вызовов
+button "F4"
+focus
+button "F4"
+focus
+button "Down"
+button "Left"
+button "Return"
+screen
+button "F4"

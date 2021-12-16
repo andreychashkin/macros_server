@@ -1,0 +1,51 @@
+***отсутствие интерфейса в плеере трансл€ции, скрыт интерфейс
+button "F4"
+focus
+way_to_all_settings
+button "Right"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Down"
+button "Down"
+button "Down"
+button "Down"
+button "Down"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "F4"
+sleep5
+sleep5
+way_to_all_broadcast
+button "Return"
+sleep5
+sleep5
+screen
+button "F4"
+way_to_all_settings
+button "Right"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Down"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "F4"

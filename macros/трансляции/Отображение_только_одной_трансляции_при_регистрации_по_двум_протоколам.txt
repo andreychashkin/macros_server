@@ -1,0 +1,48 @@
+***ќтображаетс€ только одна трансл€ци€ в меню “рансл€ции
+***ќтображаетс€ только одна трансл€ци€ в меню “рансл€ции
+button "F4"
+focus
+way_to_all_settings
+button "Right"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Down"
+button "Down"
+button "Down"
+button "Down"
+button "Down"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "F4"
+sleep15
+way_to_all_broadcast
+screen
+button "F4"
+way_to_all_settings
+button "Right"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Right"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "Down"
+button "Return"
+button "Down"
+button "Down"
+button "Return"
+button "F4"

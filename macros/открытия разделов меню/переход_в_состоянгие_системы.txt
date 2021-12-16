@@ -1,0 +1,7 @@
+***открыто меню состояние системы
+button "F4"
+focus
+way_to_all_settings
+button "Return"
+screen
+button "F4"

@@ -1,0 +1,29 @@
+***пустое поле контактов
+button "F4"
+focus
+way_to_all_contacts
+button "Left"
+button "Down"
+button "Return"
+button "1"
+button "2"
+button "3"
+button "Return"
+call
+button "Return"
+button "Return"
+screen
+button "F4"
+focus
+way_to_all_contacts
+screen
+button "F4"
+focus
+way_to_all_contacts
+button "Return"
+button "Down"
+button "Right"
+button "Return"
+screen
+button "F4"
+focus

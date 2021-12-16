@@ -1,0 +1,5 @@
+***открыто меню Вызовы
+button "F4"
+way_to_all_contacts
+screen
+button "F4"

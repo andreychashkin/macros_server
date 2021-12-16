@@ -1,0 +1,18 @@
+***кнопка Вызов недоступна, нет активной конференции
+button "F4"
+focus
+way_to_all_history
+button "Left"
+button "Up"
+button "Up"
+button "Return"
+button "Right"
+button "Return"
+button "Return"
+screen
+button "F1"
+sleep5
+sleep5
+screen
+button "F4"
+focus

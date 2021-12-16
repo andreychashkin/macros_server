@@ -1,0 +1,8 @@
+***в окне камеры выводится изображения с камеры
+button "F4"
+focus
+button "Pause" 
+sleep15
+button "Pause" 
+sleep3
+screen

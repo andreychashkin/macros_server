@@ -1,0 +1,8 @@
+***открыто меню основные настройки
+button "F4"
+focus
+way_to_all_settings
+button "Right"
+button "Return"
+screen
+button "F4"

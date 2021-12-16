@@ -1,0 +1,24 @@
+***запущен не беспокоить
+button "F4"
+focus
+way_to_all_cam
+system_menu
+sleep5
+button "Return"
+system_menu
+sleep5
+button "Return"
+system_menu
+sleep5
+button "Return"
+system_menu
+sleep5
+button "Return"
+system_menu
+sleep5
+button "Return"
+button "Escape"
+screen
+system_menu
+sleep5
+button "Return"

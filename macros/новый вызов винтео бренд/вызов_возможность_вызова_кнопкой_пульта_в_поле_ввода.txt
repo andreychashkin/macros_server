@@ -1,0 +1,40 @@
+***в поле отображается 1234
+***активная конфа
+button "F4"
+focus
+button "Right"
+button "F4"
+focus
+way_to_all_history
+button "Left"
+button "Up"
+button "Up"
+button "Return"
+button "Right"
+button "Return"
+call
+button "F1"
+sleep5
+sleep5
+screen
+button "F2"
+button "F4"
+focus
+button "F4"
+focus
+way_to_all_history
+button "Left"
+button "Up"
+button "Up"
+button "Return"
+button "Right"
+button "Return"
+button "1"
+button "2"
+button "3"
+button "4"
+button "5"
+button "BackSpace"
+screen
+button "F4"
+focus
