@@ -2,8 +2,6 @@ from app import app
 from flask import render_template, redirect, request, make_response
 from app.forms import TerminalMacrosForm, NewFileForm, PlayTest
 from app.commandToTerminal import commandToTerminal
-import paramiko
-import time
 
 
 button_terminal = {'Pause': 'Pause', 'V+': 'F9', 'V-': 'F8','+' : 'F7',
