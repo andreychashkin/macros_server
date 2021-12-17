@@ -1,18 +1,40 @@
 from app import app
-from flask import render_template, redirect, request, make_response
+from flask import render_template, redirect, request, session
 from app.forms import TerminalMacrosForm, NewFileForm, PlayTest
 from app.commandSSH import command_to_terminal
 import time, paramiko
 
 
-button_terminal = {'Pause': 'Pause', 'V+': 'F9', 'V-': 'F8','+' : 'F7',
-                   '-': 'F6', 'Up': 'Up', 'Left': 'Left', 'Down': 'Down',
-                   'Right': 'Right', 'Ok': 'Return', 'Home': 'F4', 'Back': 'Escape',
-                   'Save': 'F12', 'Call': 'F1', 'Dell': 'BackSpace', 'Off': 'F2',
-                   '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6',
-                   '7': '7', '8': '8', '9': '9', '0': '0', '.*': 'Dot', '#@': 'Dog',
-                   'pc': 'F5', 'far/near': 'ScrollLock', 'layout': 'F10', 'MicOff': 'F3', 'Sys': 'sys',
-                   'focus': 'focus', 'SaveIp': 'SaveIp', 'deleteTest':'deleteTest', 'playTest': 'playTest'}
+class Command:
+    arr = []
+
+
+button_terminal = {'Pause': 'button "Pause"\n',
+                   'V+': 'button "F9"\n',
+                   'V-': 'button "F8"\n',
+                   '+': 'button "F7"\n',
+                   '-': 'button "F6"\n',
+                   'Up': 'button "Up"\n',
+                   'Left': 'button "Left"\n',
+                   'Down': 'button "Down"\n',
+                   'Right': 'button "Right"\n',
+                   'Ok': 'button "Return"\n',
+                   'Home': 'button "F4"\n',
+                   'Back': 'button "Escape"\n',
+                   'Save': 'button "F12"\n',
+                   'Call': 'button "F1"\n',
+                   'Dell': 'button "BackSpace"\n',
+                   'Off': 'button "F2"\n',
+                   '1': 'button "1"\n', '2': 'button "2"\n', '3': 'button "3"\n',
+                   '4': 'button "4"\n', '5': 'button "5"\n', '6': 'button "6"\n',
+                   '7': 'button "7"\n', '8': 'button "8"\n', '9': 'button "9"\n',
+                   '0': 'button "1"\n', '.*': 'button "Dot"\n', '#@': 'button "Dog"\n',
+                   'pc': 'button "F5"\n', 'far/near': 'button "ScrollLock"\n', 'layout': 'button "F10"\n',
+                   'MicOff': 'button "F3"\n', 'Sys': 'button -t 2 "Pause"\n',
+                   'focus': 'focus\n', 'SaveIp': 'SaveIp', 'Clear': 'Clear'}
+
+button_test_form = {'deleteTest': 'deleteTest', 'playTest': 'playTest'}
+array_command = ['focus', 'focus', 'focus', 'focus']
 
 
 @app.route('/')
@@ -27,6 +49,7 @@ def terminal():
     form2 = NewFileForm()
     form3 = PlayTest()
     form3.load_test_in_select()
+    form3.set_select_test()
     return render_template('macros_page.html', form=form, form2=form2, form3=form3)
 
 
@@ -47,22 +70,19 @@ def new_test():
 
 @app.route('/playTest', methods=['POST'])
 def play_test():
+    global array_command
     form = PlayTest()
     command = (request.form.to_dict()).popitem()[1]
-    command = button_terminal[command]
+    command = button_test_form[command]
     if "deleteTest" in command:
         form.delete_test()
     if "playTest" in command:
-        file = open(f'macros/{form.selectTest.data}')
+        file = open(f'macros/{form.selectTest.data}', 'r')
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        print(request.cookies.get('ipTerminal'))
         client.connect(hostname=str(request.cookies.get('ipTerminal')), username=str('admin'), password=str('123'), port=22)
         with client.invoke_shell() as ssh:
             for line in file.readlines():
-                ssh.send(f'button "Right"\n')
-                # Решить проблему с записью в файл и чтением, команда бьется через enter
-                #print(f'button "{line}"\n')
+                ssh.send(line)
                 time.sleep(0.3)
-
     return redirect('/terminal')
