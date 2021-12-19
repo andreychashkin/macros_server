@@ -1,94 +1,119 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style >
+   .btn {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70px;
+    height: 30px;
+   }
+   .inp {
+    width: 250px;
+    height: 30px;
+   }
+   .long_btn
+   {
+    margin-left: auto;
+    margin-right: auto;
+    width: 110px;
+    height: 30px;
+   }
+   .arr
+   {
+    width: 250px;
+    height: 600px;
+   }
+  </style>
+
 <table>
         <td>
                 <form action="/click" method="POST">
+                        <div>
+                                <p> Ip terminal </p>
+                                <p id="ipT"> {{ form.ipTerminal(class="inp") }}  {{ form.saveIp(class="btn") }}  </p>
+                        </div>
         <table>
+
                 <tr>
-                        <td> Ip terminal </td>
-                        <td id="ipT"> {{ form.ipTerminal(size = 10) }} </td>
-                        <td> {{ form.saveIp() }} </td>
+                        <td> {{ form.pause(class="btn") }} </td>
+                        <td> {{ form.focus(class="btn") }} </td>
+                        <td> {{ form.system(class="btn") }} </td>
                 </tr>
                 <tr>
-                        <td> {{ form.pause() }} </td>
-                        <td> {{ form.focus() }} </td>
-                        <td> {{ form.system() }} </td>
-                </tr>
-                <tr>
-                        <td> {{ form.volumeUp() }} </td>
+                        <td> {{ form.volumeUp(class="btn") }} </td>
                         <td></td>
-                        <td> {{ form.camPlus() }} </td>
+                        <td> {{ form.camPlus(class="btn") }} </td>
                 </tr>
                 <tr>
-                        <td> {{ form.volumeDown() }} </td>
+                        <td> {{ form.volumeDown(class="btn") }} </td>
                         <td></td>
-                        <td> {{ form.camMinus() }} </td>
+                        <td> {{ form.camMinus(class="btn") }} </td>
                 </tr>
 
                 <tr>
                         <td></td>
-                        <td> {{ form.up() }} </td>
+                        <td> {{ form.up(class="btn") }} </td>
                         <td></td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.left() }} </td>
-                        <td> {{ form.ok() }} </td>
-                        <td> {{ form.right() }} </td>
+                        <td> {{ form.left(class="btn") }} </td>
+                        <td> {{ form.ok(class="btn") }} </td>
+                        <td> {{ form.right(class="btn") }} </td>
                 </tr>
 
                 <tr>
                         <td></td>
-                        <td> {{ form.down() }} </td>
+                        <td> {{ form.down(class="btn") }} </td>
                         <td></td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.home() }} </td>
-                        <td> {{ form.back() }} </td>
-                        <td> {{ form.save() }} </td>
+                        <td> {{ form.home(class="btn") }} </td>
+                        <td> {{ form.back(class="btn") }} </td>
+                        <td> {{ form.save(class="btn") }} </td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.call() }} </td>
-                        <td> {{ form.backSpace() }} </td>
-                        <td> {{ form.callOff() }} </td>
+                        <td> {{ form.call(class="btn") }} </td>
+                        <td> {{ form.backSpace(class="btn") }} </td>
+                        <td> {{ form.callOff(class="btn") }} </td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.button_1() }} </td>
-                        <td> {{ form.button_2() }} </td>
-                        <td> {{ form.button_3() }} </td>
+                        <td> {{ form.button_1(class="btn") }} </td>
+                        <td> {{ form.button_2(class="btn") }} </td>
+                        <td> {{ form.button_3(class="btn") }} </td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.button_4() }} </td>
-                        <td> {{ form.button_5() }} </td>
-                        <td> {{ form.button_6() }} </td>
+                        <td> {{ form.button_4(class="btn") }} </td>
+                        <td> {{ form.button_5(class="btn") }} </td>
+                        <td> {{ form.button_6(class="btn") }} </td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.button_7() }} </td>
-                        <td> {{ form.button_8() }} </td>
-                        <td> {{ form.button_9() }} </td>
+                        <td> {{ form.button_7(class="btn") }} </td>
+                        <td> {{ form.button_8(class="btn") }} </td>
+                        <td> {{ form.button_9(class="btn") }} </td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.button_dot() }} </td>
-                        <td> {{ form.button_0() }} </td>
-                        <td> {{ form.button_dog() }} </td>
+                        <td> {{ form.button_dot(class="btn") }} </td>
+                        <td> {{ form.button_0(class="btn") }} </td>
+                        <td> {{ form.button_dog(class="btn") }} </td>
                 </tr>
 
                 <tr>
-                        <td> {{ form.pc() }} </td>
-                        <td> {{ form.far() }} </td>
-                        <td> {{ form.layout() }} </td>
+                        <td> {{ form.pc(class="btn") }} </td>
+                        <td> {{ form.far(class="btn") }} </td>
+                        <td> {{ form.layout(class="btn") }} </td>
                 </tr>
 
                 <tr>
                         <td></td>
-                        <td> {{ form.micOff() }} </td>
+                        <td> {{ form.micOff(class="btn") }} </td>
                         <td></td>
                 </tr>
         </table>
@@ -98,16 +123,27 @@
         <td>
                 <div>
                         <form action="/newTest" method="POST">
-                                <p> {{ form2.nameTest(size =20) }}  {{ form2.newTest() }} </p>
-                                <p> {{ form3.textForm() }}</p>
+                                <p> {{ form2.nameTest(class="inp") }}  {{ form2.newTest(class="long_btn") }} </p>
                         </form>
                 </div>
 
+
                         <form action="/playTest" method="POST">
                                 <div>
-                                        <p> {{ form3.selectTest(height = 40) }} {{ form3.playTest() }} </p>
-                                        <p> {{ form3.deleteTest() }} </p>
+                                        <p> {{ form3.selectTest(class="inp") }} {{ form3.playTest(class="long_btn") }} </p>
+                                        <p> {{ form3.deleteTest(class="long_btn") }} </p>
                                 </div>
+
+                                <table>
+                                        <tr>
+                                                <td> {{ form3.textForm(class="arr") }} </td>
+                                                <td>
+                                                        <p> {{ form3.recCommand(class="long_btn") }} </p>
+                                                        <p> {{ form3.clearCommand(class="long_btn") }} </p>
+                                                </td>
+                                        </tr>
+
+                                </table>
                         </form>
 
         </td>

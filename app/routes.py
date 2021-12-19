@@ -5,10 +5,6 @@ from app.commandSSH import command_to_terminal
 import time, paramiko
 
 
-class Command:
-    arr = []
-
-
 button_terminal = {'Pause': 'button "Pause"\n',
                    'V+': 'button "F9"\n',
                    'V-': 'button "F8"\n',
@@ -33,8 +29,8 @@ button_terminal = {'Pause': 'button "Pause"\n',
                    'MicOff': 'button "F3"\n', 'Sys': 'button -t 2 "Pause"\n',
                    'focus': 'focus\n', 'SaveIp': 'SaveIp', 'Clear': 'Clear'}
 
-button_test_form = {'deleteTest': 'deleteTest', 'playTest': 'playTest'}
-array_command = ['focus', 'focus', 'focus', 'focus']
+button_test_form = {'deleteTest': 'deleteTest', 'playTest': 'playTest',
+                    'recCommand': 'recCommand', 'clearCommand': 'clearCommand'}
 
 
 @app.route('/')
@@ -49,7 +45,8 @@ def terminal():
     form2 = NewFileForm()
     form3 = PlayTest()
     form3.load_test_in_select()
-    form3.set_select_test()
+    if 'arr' in session:
+        form3.load_command(session['arr'])
     return render_template('macros_page.html', form=form, form2=form2, form3=form3)
 
 
@@ -58,6 +55,12 @@ def click():
     command = (request.form.to_dict()).popitem()[1]
     command = button_terminal[command]
     command_to_terminal(command)
+    if 'arr' in session:
+        l = session.get('arr')
+        l.append(command)
+        session['arr'] = l
+    else:
+        session['arr'] = []
     return redirect('/terminal')
 
 
@@ -70,13 +73,12 @@ def new_test():
 
 @app.route('/playTest', methods=['POST'])
 def play_test():
-    global array_command
     form = PlayTest()
     command = (request.form.to_dict()).popitem()[1]
     command = button_test_form[command]
     if "deleteTest" in command:
         form.delete_test()
-    if "playTest" in command:
+    elif "playTest" in command:
         file = open(f'macros/{form.selectTest.data}', 'r')
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -85,4 +87,25 @@ def play_test():
             for line in file.readlines():
                 ssh.send(line)
                 time.sleep(0.3)
+
+    elif 'clearCommand' in command:
+        session['arr'] = []
+    elif 'recCommand' in command:
+        form.rec()
     return redirect('/terminal')
+
+'''
+@app.route('/recCommand', methods=['POST'])
+def rec_command_to_file():
+    form = PlayTest()
+    command = (request.form.to_dict()).popitem()[1]
+    command = button_test_form[command]
+    if 'clearCommand' in command:
+        session['arr'] = []
+    if 'recCommand' in command:
+        file = open(f'macros/{form.selectTest.data}', 'w+')
+        print(f'macros/{form.selectTest.data}')
+        for l in session['arr']:
+            file.write(l + '\n')
+        file.close()
+    return redirect('/terminal')'''

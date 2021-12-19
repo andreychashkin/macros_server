@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from flask import request, make_response
-from wtforms import StringField, SubmitField, SelectField, Label, TextAreaField
+from flask import session
+from wtforms import StringField, SubmitField, SelectField, TextAreaField
 import os
 
 
@@ -41,15 +41,13 @@ class TerminalMacrosForm(FlaskForm):
     far = SubmitField('far/near')
     layout = SubmitField('layout')
     micOff = SubmitField('MicOff')
-    clear = SubmitField('Clear')
 
     def set_ip_terminal(self):
-        cookie = request.cookies.get('ipTerminal')
-        if cookie != None:
-            self.ipTerminal.data = cookie
-            make_response().set_cookie('ipTerminal', '', max_age=0)
+        if 'ipTerminal' in session:
+            self.ipTerminal.data = session['ipTerminal']
         else:
-            self.ipTerminal.data = '10.1.0.129'
+            session['ipTerminal'] = ''
+            self.ipTerminal.data = ''
         return
 
 
@@ -58,28 +56,29 @@ class NewFileForm(FlaskForm):
     newTest = SubmitField('newTest')
 
     def new_file(self):
-        if not(self.nameTest.data is None):
-            f = open('macros/'+ self.nameTest.data, 'w+')
+        if self.nameTest.data:
+            f = open('macros/' + self.nameTest.data, 'w+')
             f.close()
         return
 
 
 class PlayTest(FlaskForm):
+    current_dir = os.path.abspath('.').partition('//')
+    current_dir = current_dir[0] + '/macros/'
     selectTest = SelectField('selectTest')
     playTest = SubmitField('playTest')
     deleteTest = SubmitField('deleteTest')
-    statusTest = Label('deleteTest', 'Status Test')
-    setTest = SubmitField('setTest')
-    textForm = TextAreaField(default='lkjsdfsdkjfsdkjaflkjsdlkjfklajnfjklasdnfsdajfnasklfnsdakjfnas;ajdfnsak')
+
+    textForm = TextAreaField(default='')
+    recCommand = SubmitField('recCommand')
+    clearCommand = SubmitField('clearCommand')
 
     def load_test_in_select(self):
         self.selectTest.choices = self.load_txt()
 
     def load_txt(self):
         rez = []
-        current_dir = os.path.abspath('.').partition('//')
-        current_dir = current_dir[0] + '/macros/'
-        for file in os.listdir(current_dir):
+        for file in os.listdir(self.current_dir):
             if file.endswith(".txt"):
                 rez.append(file)
         return rez
@@ -88,11 +87,11 @@ class PlayTest(FlaskForm):
         os.remove(f'macros/{self.selectTest.data}')
         return
 
-    def set_select_test(self):
-        cookie = request.cookies.get('selectTest')
-        if cookie != None:
-            self.selectTest.data = cookie
-            make_response().set_cookie('selectTest', '', max_age=0)
-        else:
-            self.selectTest.data = None
-        return
+    def load_command(self, line=['']):
+        for i in line:
+            self.textForm.data = self.textForm.data + i + '\n'
+
+    def rec(self):
+        file = open(f'macros/{self.selectTest.data}', 'w+')
+        file.write(self.textForm.data)
+        file.close()
