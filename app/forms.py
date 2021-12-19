@@ -68,7 +68,6 @@ class PlayTest(FlaskForm):
     selectTest = SelectField('selectTest')
     playTest = SubmitField('playTest')
     deleteTest = SubmitField('deleteTest')
-
     textForm = TextAreaField(default='')
     recCommand = SubmitField('recCommand')
     clearCommand = SubmitField('clearCommand')
@@ -85,7 +84,6 @@ class PlayTest(FlaskForm):
 
     def delete_test(self):
         os.remove(f'macros/{self.selectTest.data}')
-        return
 
     def load_command(self, line=['']):
         for i in line:

@@ -29,9 +29,6 @@ button_terminal = {'Pause': 'button "Pause"\n',
                    'MicOff': 'button "F3"\n', 'Sys': 'button -t 2 "Pause"\n',
                    'focus': 'focus\n', 'SaveIp': 'SaveIp', 'Clear': 'Clear'}
 
-button_test_form = {'deleteTest': 'deleteTest', 'playTest': 'playTest',
-                    'recCommand': 'recCommand', 'clearCommand': 'clearCommand'}
-
 
 @app.route('/')
 def index():
@@ -74,38 +71,20 @@ def new_test():
 @app.route('/playTest', methods=['POST'])
 def play_test():
     form = PlayTest()
-    command = (request.form.to_dict()).popitem()[1]
-    command = button_test_form[command]
-    if "deleteTest" in command:
+    command = (request.form.to_dict())
+    if 'deleteTest' in command:
         form.delete_test()
-    elif "playTest" in command:
+    elif 'playTest' in command:
         file = open(f'macros/{form.selectTest.data}', 'r')
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname=str(request.cookies.get('ipTerminal')), username=str('admin'), password=str('123'), port=22)
+        client.connect(hostname=str(session['ipTerminal']), username=str('admin'), password=str('123'), port=22)
         with client.invoke_shell() as ssh:
             for line in file.readlines():
                 ssh.send(line)
                 time.sleep(0.3)
-
     elif 'clearCommand' in command:
         session['arr'] = []
     elif 'recCommand' in command:
         form.rec()
     return redirect('/terminal')
-
-'''
-@app.route('/recCommand', methods=['POST'])
-def rec_command_to_file():
-    form = PlayTest()
-    command = (request.form.to_dict()).popitem()[1]
-    command = button_test_form[command]
-    if 'clearCommand' in command:
-        session['arr'] = []
-    if 'recCommand' in command:
-        file = open(f'macros/{form.selectTest.data}', 'w+')
-        print(f'macros/{form.selectTest.data}')
-        for l in session['arr']:
-            file.write(l + '\n')
-        file.close()
-    return redirect('/terminal')'''
