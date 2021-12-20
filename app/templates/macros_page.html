@@ -31,7 +31,7 @@
                 <form action="/click" method="POST">
                         <div>
                                 <p> Ip terminal </p>
-                                <p id="ipT"> {{ form.ipTerminal(class="inp") }}  {{ form.saveIp(class="btn") }}  </p>
+                                <p> {{ form.ipTerminal(class="inp") }}  {{ form.saveIp(class="btn") }}  </p>
                         </div>
         <table>
 
@@ -129,8 +129,8 @@
 
 
                         <form action="/playTest" method="POST">
-                                        <p> {{ form3.selectTest(class="inp") }} {{ form3.playTest(class="long_btn") }} </p>
-                                        <p> {{ form3.deleteTest(class="long_btn") }} </p>
+                                        <p> {{ form3.selectTest(class="inp") }} {{ form3.repeat(class="btn") }} {{ form3.playTest(class="long_btn") }} </p>
+                                        <p> {{ form3.deleteTest(class="long_btn") }}  </p>
 
                                 <table>
                                         <tr>

@@ -5,29 +5,30 @@ from app.commandSSH import command_to_terminal
 import time, paramiko
 
 
-button_terminal = {'Pause': 'button "Pause"\n',
-                   'V+': 'button "F9"\n',
-                   'V-': 'button "F8"\n',
-                   '+': 'button "F7"\n',
-                   '-': 'button "F6"\n',
-                   'Up': 'button "Up"\n',
-                   'Left': 'button "Left"\n',
-                   'Down': 'button "Down"\n',
-                   'Right': 'button "Right"\n',
-                   'Ok': 'button "Return"\n',
-                   'Home': 'button "F4"\n',
-                   'Back': 'button "Escape"\n',
-                   'Save': 'button "F12"\n',
-                   'Call': 'button "F1"\n',
-                   'Dell': 'button "BackSpace"\n',
-                   'Off': 'button "F2"\n',
-                   '1': 'button "1"\n', '2': 'button "2"\n', '3': 'button "3"\n',
-                   '4': 'button "4"\n', '5': 'button "5"\n', '6': 'button "6"\n',
-                   '7': 'button "7"\n', '8': 'button "8"\n', '9': 'button "9"\n',
-                   '0': 'button "1"\n', '.*': 'button "Dot"\n', '#@': 'button "Dog"\n',
-                   'pc': 'button "F5"\n', 'far/near': 'button "ScrollLock"\n', 'layout': 'button "F10"\n',
-                   'MicOff': 'button "F3"\n', 'Sys': 'button -t 2 "Pause"\n',
-                   'focus': 'focus\n', 'SaveIp': 'SaveIp', 'Clear': 'Clear'}
+button_terminal = {'Pause': 'button "Pause"',
+                   'timeSleepButton': 'timeSleepButton',
+                   'V+': 'button "F9"',
+                   'V-': 'button "F8"',
+                   '+': 'button "F7"',
+                   '-': 'button "F6"',
+                   'Up': 'button "Up"',
+                   'Left': 'button "Left"',
+                   'Down': 'button "Down"',
+                   'Right': 'button "Right"',
+                   'Ok': 'button "Return"',
+                   'Home': 'button "F4"',
+                   'Back': 'button "Escape"',
+                   'Save': 'button "F12"',
+                   'Call': 'button "F1"',
+                   'Dell': 'button "BackSpace"',
+                   'Off': 'button "F2"',
+                   '1': 'button "1"', '2': 'button "2"', '3': 'button "3"',
+                   '4': 'button "4"', '5': 'button "5"', '6': 'button "6"',
+                   '7': 'button "7"', '8': 'button "8"', '9': 'button "9"',
+                   '0': 'button "1"', '.*': 'button "Dot"', '#@': 'button "Dog"',
+                   'pc': 'button "F5"', 'far/near': 'button "ScrollLock"', 'layout': 'button "F10"',
+                   'MicOff': 'button "F3"', 'Sys': 'button -t 2 "Pause"',
+                   'focus': 'focus', 'SaveIp': 'SaveIp', 'Clear': 'Clear'}
 
 
 @app.route('/')
@@ -49,15 +50,15 @@ def terminal():
 
 @app.route('/click',  methods=['POST'])
 def click():
-    command = (request.form.to_dict()).popitem()[1]
+    command = request.form.to_dict().popitem()[1]
     command = button_terminal[command]
-    command_to_terminal(command)
     if 'arr' in session:
         l = session.get('arr')
         l.append(command)
         session['arr'] = l
     else:
         session['arr'] = []
+    command_to_terminal(command)
     return redirect('/terminal')
 
 
@@ -71,7 +72,7 @@ def new_test():
 @app.route('/playTest', methods=['POST'])
 def play_test():
     form = PlayTest()
-    command = (request.form.to_dict())
+    command = request.form.to_dict()
     if 'deleteTest' in command:
         form.delete_test()
     elif 'playTest' in command:
@@ -80,11 +81,20 @@ def play_test():
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(hostname=str(session['ipTerminal']), username=str('admin'), password=str('123'), port=22)
         with client.invoke_shell() as ssh:
-            for line in file.readlines():
-                ssh.send(line)
-                time.sleep(0.3)
+            for i in range(0, form.repeat.data):
+                file = open(f'macros/{form.selectTest.data}', 'r')
+                for line in file.readlines():
+                    if 'sleep' in line:
+                        t = int(line.split(' ')[1])
+                        time.sleep(t)
+                    ssh.send(line)
+                    time.sleep(0.3)
+                time.sleep(2)
+
     elif 'clearCommand' in command:
         session['arr'] = []
     elif 'recCommand' in command:
+        q = form.textForm.data
+        session['arr'] = [q]
         form.rec()
     return redirect('/terminal')

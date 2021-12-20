@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask import session
-from wtforms import StringField, SubmitField, SelectField, TextAreaField
+from wtforms import StringField, SubmitField, SelectField, TextAreaField, IntegerField
 import os
 
 
@@ -71,6 +71,7 @@ class PlayTest(FlaskForm):
     textForm = TextAreaField(default='')
     recCommand = SubmitField('recCommand')
     clearCommand = SubmitField('clearCommand')
+    repeat = IntegerField('repeat', default=1)
 
     def load_test_in_select(self):
         self.selectTest.choices = self.load_txt()
