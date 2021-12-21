@@ -1,8 +1,56 @@
-SaveIp
-SaveIp
-SaveIp
+*** Отображается сообщение о созданном контаке
+button "F4"
 focus
-sleep 10
-SaveIp
-
-
+button "Right"
+button "Down"
+button "Return"
+button "Down"
+button "Return"
+button "Right"
+button "Down"
+button "Return"
+button "Left"
+button "Down"
+button "Return"
+button "Up"
+button "Left"
+button "Left"
+button "Left"
+button "Left"
+button "Return"
+button "Right"
+button "Right"
+button "Right"
+button "Down"
+button "Return"
+button "Right"
+button "Return"
+button "Up"
+button "Right"
+button "Return"
+button "1"
+button "1"
+button "Dot"
+button "BackSpace"
+button "BackSpace"
+button "1"
+button "BackSpace"
+button "2"
+button "3"
+button "4"
+button "5"
+button "6"
+button "7"
+button "8"
+button "9"
+button "Dot"
+button "1"
+button "Dog"
+button "Return"
+button "Return"
+Screen
+button "Down"
+button "Right"
+button "Return"
+button "F4"
+focus

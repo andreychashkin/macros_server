@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, redirect, request, session
 from app.forms import TerminalMacrosForm, NewFileForm, PlayTest
-from app.commandSSH import command_to_terminal
+from app.commandSSH import command_to_terminal, request_connect
 import time, paramiko
 
 
@@ -25,10 +25,10 @@ button_terminal = {'Pause': 'button "Pause"',
                    '1': 'button "1"', '2': 'button "2"', '3': 'button "3"',
                    '4': 'button "4"', '5': 'button "5"', '6': 'button "6"',
                    '7': 'button "7"', '8': 'button "8"', '9': 'button "9"',
-                   '0': 'button "1"', '.*': 'button "Dot"', '#@': 'button "Dog"',
+                   '0': 'button "0"', '.*': 'button "Dot"', '#@': 'button "Dog"',
                    'pc': 'button "F5"', 'far/near': 'button "ScrollLock"', 'layout': 'button "F10"',
                    'MicOff': 'button "F3"', 'Sys': 'button -t 2 "Pause"',
-                   'focus': 'focus', 'SaveIp': 'SaveIp', 'Clear': 'Clear'}
+                   'focus': 'focus', 'SaveIp': 'SaveIp', 'Clear': 'Clear', 'Screen': 'Screen'}
 
 
 @app.route('/')
@@ -76,7 +76,6 @@ def play_test():
     if 'deleteTest' in command:
         form.delete_test()
     elif 'playTest' in command:
-        file = open(f'macros/{form.selectTest.data}', 'r')
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(hostname=str(session['ipTerminal']), username=str('admin'), password=str('123'), port=22)
@@ -84,13 +83,17 @@ def play_test():
             for i in range(0, form.repeat.data):
                 file = open(f'macros/{form.selectTest.data}', 'r')
                 for line in file.readlines():
+                    if "***" in line:
+                        text = line
                     if 'sleep' in line:
                         t = int(line.split(' ')[1])
                         time.sleep(t)
-                    ssh.send(line)
-                    time.sleep(0.3)
+                    elif 'Screen' in line:
+                        request_connect(ipTerminal=session['ipTerminal'], testName=str(form.selectTest.data), text=text)
+                    else:
+                        ssh.send(line + '\n')
+                        time.sleep(0.3)
                 time.sleep(2)
-
     elif 'clearCommand' in command:
         session['arr'] = []
     elif 'recCommand' in command:

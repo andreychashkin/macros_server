@@ -10,6 +10,7 @@ class TerminalMacrosForm(FlaskForm):
     pause = SubmitField('Pause')
     focus = SubmitField('focus')
     system = SubmitField('Sys')
+    screen = SubmitField('Screen')
     volumeUp = SubmitField('V+')
     volumeDown = SubmitField('V-')
     camPlus = SubmitField('+')
