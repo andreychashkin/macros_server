@@ -16,7 +16,7 @@
    {
     margin-left: auto;
     margin-right: auto;
-    width: 110px;
+    width: 150px;
     height: 30px;
    }
    .arr
@@ -31,7 +31,7 @@
                 <form action="/click" method="POST">
                         <div>
                                 <p> Ip terminal </p>
-                                <p id="ipT"> {{ form.ipTerminal(class="inp") }}  {{ form.saveIp(class="btn") }}  </p>
+                                <p> {{ form.ipTerminal(class="inp") }}  {{ form.saveIp(class="btn") }}  </p>
                         </div>
         <table>
 
@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                         <td> {{ form.volumeUp(class="btn") }} </td>
-                        <td></td>
+                        <td> {{ form.screen(class="btn") }} </td>
                         <td> {{ form.camPlus(class="btn") }} </td>
                 </tr>
                 <tr>
@@ -129,8 +129,8 @@
 
 
                         <form action="/playTest" method="POST">
-                                        <p> {{ form3.selectTest(class="inp") }} {{ form3.playTest(class="long_btn") }} </p>
-                                        <p> {{ form3.deleteTest(class="long_btn") }} </p>
+                                        <p> {{ form3.selectTest(class="inp") }} {{ form3.repeat(class="btn") }} {{ form3.playTest(class="long_btn") }} </p>
+                                        <p> {{ form3.deleteTest(class="long_btn") }}  {{ form3.downloadMacros(class="long_btn") }} </p>
 
                                 <table>
                                         <tr>
@@ -138,11 +138,14 @@
                                                 <td>
                                                         <p> {{ form3.recCommand(class="long_btn") }} </p>
                                                         <p> {{ form3.clearCommand(class="long_btn") }} </p>
+                                                        <p> {{ form3.downloadScreenshots(class="long_btn") }} </p>
                                                 </td>
                                         </tr>
 
                                 </table>
                         </form>
+
+
 
         </td>
 
