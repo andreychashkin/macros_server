@@ -1,8 +1,12 @@
 from app import app
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request, session, send_file
 from app.forms import TerminalMacrosForm, NewFileForm, PlayTest
 from app.commandSSH import command_to_terminal, request_connect
-import time, paramiko
+import time
+import paramiko
+import shutil
+import os
+import shutil
 
 
 button_terminal = {'Pause': 'button "Pause"',
@@ -100,4 +104,15 @@ def play_test():
         q = form.textForm.data
         session['arr'] = [q]
         form.rec()
+    elif 'downloadScreenshots' in command:
+        shutil.make_archive('screenshots', 'zip', './screen')
+        shutil.rmtree('./screen')
+        os.mkdir('screen')
+        redirect('/terminal')
+        return send_file('../screenshots.zip', as_attachment=True)
+    elif 'downloadMacros' in command:
+        shutil.make_archive('macrosZIP', 'zip', './macros')
+        redirect('/terminal')
+        return send_file('../macrosZIP.zip', as_attachment=True)
     return redirect('/terminal')
+

@@ -73,6 +73,8 @@ class PlayTest(FlaskForm):
     recCommand = SubmitField('recCommand')
     clearCommand = SubmitField('clearCommand')
     repeat = IntegerField('repeat', default=1)
+    downloadScreenshots = SubmitField('downloadScreenshots')
+    downloadMacros = SubmitField('DownloadMacros')
 
     def load_test_in_select(self):
         self.selectTest.choices = self.load_txt()
